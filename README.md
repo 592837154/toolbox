@@ -5,28 +5,29 @@ A collection of practical tools and scripts designed to solve real-world efficie
 
 ---
 
-## 🚀 核心项目 / Featured Project
+## 🚀 核心项目 / Featured Projects
 
-### [Anti-SASE Controller](./Anti-SASE-Controller)
+### 1. [Anti-SASE Controller](./Anti-SASE-Controller)
 **Language: Go (Golang)**
 
-#### **中文说明**
-- **痛点**：公司强制安装的 SASE 软件存在过度监听上网记录、限制代理软件使用且关闭后频繁自启动的问题，严重干扰开发流程。
-- **解决方案**：使用 Go 开发的系统级控制工具。
-    - **一键终止**：快速杀掉所有 SASE 相关进程。
-    - **持续拦截**：后台监听系统进程，一旦检测到 SASE 尝试自动重启，立即将其拦截，确保环境纯净。
-- **价值**：实现了办公合规与个人隐私/开发自由的完美平衡。
+- **中文说明**: 解决公司 SASE 软件过度监控与自启动问题，通过 Go 脚本实现进程的一键终止与持续拦截，找回开发环境的控制权。
+- **English**: A system-level controller built with Go to terminate and intercept invasive SASE processes, reclaiming control over the development environment.
 
-#### **English Description**
-- **Pain Point**: Mandatory corporate SASE software monitors web history, blocks proxy tools, and repeatedly auto-restarts, disrupting the development workflow.
-- **Solution**: A system-level controller built with Go.
-    - **One-Click Kill**: Instantly terminates all SASE-related processes.
-    - **Active Interception**: Background monitoring that intercepts and kills SASE immediately upon any unauthorized auto-restart attempts.
-- **Value**: Achieves a perfect balance between corporate compliance and personal privacy/developer freedom.
+### 2. [Weather Push Bot](./Weather-Push-Bot)
+**Language: Python**
+
+- **中文说明**: 0 成本自动化天气提醒方案。结合 HuggingFace 托管、高德地图 API 及 UptimeRobot，通过企业微信机器人实现每日准时推送。
+- **English**: A zero-cost automated weather notification bot. Utilizing HuggingFace, Amap API, and UptimeRobot to deliver daily alerts via WeChat Work.
+
+---
+
+## 🏗️ 正在建设中 / In Progress
+- **[Dev-Log](https://github.com/592837154/dev-log)**: 记录这些工具背后的开发心得与技术避坑指南。
+- **[Life-Notes](https://github.com/592837154/life-notes)**: 记录通往 37 岁目标的学习与生活点滴。
 
 ---
 
 ## 📈 未来计划 / Future Roadmap
-- [ ] 更多基于 Go 的系统自动化脚本
-- [ ] AI 辅助生成的效能小工具
-- [ ] 网络环境一键切换方案
+- [ ] 更多基于 Go 的系统自动化脚本 (More Go-based system scripts)
+- [ ] AI 辅助生成的效能小工具 (AI-powered productivity tools)
+- [ ] 网络环境一键切换方案 (One-click network environment switcher)
