@@ -1,11 +1,9 @@
 import requests
 import json
-import math
 import os
-import threading
 from flask import Flask
 from datetime import datetime, timedelta
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # ==================== 配置区 ====================
 WEBHOOK_URL = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=973582d2-a263-4e4f-ad8c-14b9c53a6fca"
@@ -18,7 +16,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Weather & Remind Service is Running! 🚀 (7:30 & 18:35)"
+    # 增加当前服务器时间显示，方便通过网页确认服务是否活着
+    now = datetime.utcnow() + timedelta(hours=8)
+    return f"Service is Running! 🚀<br>Current Beijing Time: {now.strftime('%Y-%m-%d %H:%M:%S')}<br>Schedule: 07:30 & 18:35"
 
 def get_full_weather():
     """获取高德全量天气数据"""
@@ -83,30 +83,18 @@ def send_remind_msg():
     requests.post(WEBHOOK_URL, json={"msgtype": "text", "text": {"content": "\n".join(remind_text)}})
     print(f"[{datetime.now()}] 已发送：傍晚下班提醒")
 
-def run_scheduler():
-    # 使用上海时区
-    scheduler = BlockingScheduler(timezone='Asia/Shanghai')
-    
-    # 设置天气推送时间：每天 07:30
-    scheduler.add_job(send_weather_msg, 'cron', hour=7, minute=30)
-    
-    # 设置下班提醒时间：每天 18:35
-    scheduler.add_job(send_remind_msg, 'cron', hour=18, minute=35)
-    
-    print("定时器已启动：早上 07:30 推送天气，傍晚 18:35 推送提醒。")
-    scheduler.start()
+# 配置定时任务
+scheduler = BackgroundScheduler(timezone='Asia/Shanghai')
+scheduler.add_job(send_weather_msg, 'cron', hour=7, minute=30)
+scheduler.add_job(send_remind_msg, 'cron', hour=18, minute=35)
+scheduler.start()
 
 if __name__ == "__main__":
     # 启动时立刻各发送一次，用于确认 Webhook 和 API 是否配置成功
-    # 如果不需要启动时发送，可以将下面两行注释掉
     print("正在执行启动首次验证推送...")
     send_weather_msg()
     send_remind_msg()
     
-    # 开启定时线程
-    timer_thread = threading.Thread(target=run_scheduler)
-    timer_thread.daemon = True
-    timer_thread.start()
-    
-    # 启动 Web 服务 (Hugging Face / 部署需要)
-    app.run(host='0.0.0.0', port=7860)
+    # 启动 Web 服务，监听 Hugging Face 的 7860 端口
+    # debug=False 是为了防止定时任务被初始化两次
+    app.run(host='0.0.0.0', port=7860, debug=False)
