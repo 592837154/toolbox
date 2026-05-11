@@ -6,10 +6,20 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 // OutputDirName 为 exe 同目录下用于存放生成物的文件夹名。
 const OutputDirName = "output"
+
+// FileNameByHMS 返回以当前本地时间「时分秒」命名的文件名，如 143052.mp4。
+// ext 须带点，例如 ".bin"、".mp4"。
+func FileNameByHMS(ext string) string {
+	if ext != "" && ext[0] != '.' {
+		ext = "." + ext
+	}
+	return time.Now().Format("150405") + ext
+}
 
 // ExeOutputBaseDir 返回「可执行文件所在目录/output」的绝对路径。
 func ExeOutputBaseDir() (string, error) {

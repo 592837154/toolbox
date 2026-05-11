@@ -3,27 +3,22 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"file-generator/internal/gen"
 )
 
 // ========== MP4：修改后保存，执行 go build -o file-mp4.exe ./cmd/file-mp4 ==========
-// 需要系统 PATH 中有 ffmpeg。
+// 需要系统 PATH 中有 ffmpeg。生成文件名：运行时刻的时分秒（HHmmss）+ .mp4
 
 const (
-	outFileName = "sample.mp4"
-	seconds     = 10.0
-	width       = 1280
-	height      = 720
+	seconds = 10.0
+	width   = 1280
+	height  = 720
 )
 
 func main() {
 	fmt.Println("file-mp4 — 黑屏 H.264 样本 → exe 同目录/output/")
-	if strings.TrimSpace(outFileName) == "" {
-		fmt.Fprintln(os.Stderr, "请在 cmd/file-mp4/main.go 中填写 outFileName")
-		os.Exit(1)
-	}
+	outFileName := gen.FileNameByHMS(".mp4")
 
 	baseDir, err := gen.ExeOutputBaseDir()
 	if err != nil {

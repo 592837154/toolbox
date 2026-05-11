@@ -9,21 +9,21 @@
 
 ### ✨ 核心功能 / Features
 - **file-raw.exe / 占位文件**:
-    - **CN**: 修改 `cmd/file-raw/main.go` 顶部常量（文件名、大小、是否稀疏），编译后双击即生成。
-    - **EN**: Edit constants in `cmd/file-raw/main.go`, build, double-click.
+    - **CN**: 修改 `cmd/file-raw/main.go` 中大小与稀疏选项；输出文件名为**运行时刻的时分秒**（`HHmmss.bin`，如 `143052.bin`）。
+    - **EN**: Edit size/sparse in `cmd/file-raw/main.go`; output name is local time **HHmmss** + `.bin`.
 - **file-mp4.exe / 视频样本**:
-    - **CN**: 修改 `cmd/file-mp4/main.go`，生成黑屏 H.264 MP4（依赖 ffmpeg）。
-    - **EN**: Edit `cmd/file-mp4/main.go`; black-screen H.264 (requires ffmpeg).
+    - **CN**: 修改 `cmd/file-mp4/main.go` 中时长与分辨率；文件名为 `HHmmss.mp4`（依赖 ffmpeg）。
+    - **EN**: Edit duration/resolution; filename `HHmmss.mp4` (requires ffmpeg).
 - **file-mp3.exe / 音频样本**:
-    - **CN**: 修改 `cmd/file-mp3/main.go`，生成静音 MP3（依赖 ffmpeg）。
-    - **EN**: Edit `cmd/file-mp3/main.go`; silent MP3 (requires ffmpeg).
+    - **CN**: 修改 `cmd/file-mp3/main.go` 中时长；文件名为 `HHmmss.mp3`（依赖 ffmpeg）。
+    - **EN**: Edit duration; filename `HHmmss.mp3` (requires ffmpeg).
 
 ---
 
 ### 🛠️ 技术实现 / Technical Implementation
 - **Language**: Go (Golang)
 - **Mechanism**:
-    - 三个独立 `main`：`cmd/file-raw`、`cmd/file-mp4`、`cmd/file-mp3`；共享逻辑在 `internal/gen`。
+    - 三个独立 `main`：`cmd/file-raw`、`cmd/file-mp4`、`cmd/file-mp3`；共享逻辑在 `internal/gen`（含 `FileNameByHMS` 统一按本地时钟命名）。
     - 输出目录均为 **exe 同目录下的 `output/`**，`output/` 已在 `.gitignore` 中忽略。
     - 任务结束后进程立即退出，双击运行时控制台窗口会自行关闭（若需看日志可在终端里手动运行 exe）。
 - **Build / 编译**（在 `File-Generator` 目录下）:

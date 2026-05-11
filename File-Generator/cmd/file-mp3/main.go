@@ -3,25 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"file-generator/internal/gen"
 )
 
 // ========== MP3：修改后保存，执行 go build -o file-mp3.exe ./cmd/file-mp3 ==========
-// 需要系统 PATH 中有 ffmpeg。
+// 需要系统 PATH 中有 ffmpeg。生成文件名：运行时刻的时分秒（HHmmss）+ .mp3
 
 const (
-	outFileName = "sample.mp3"
-	seconds     = 60.0
+	seconds = 60.0
 )
 
 func main() {
 	fmt.Println("file-mp3 — 静音 MP3 样本 → exe 同目录/output/")
-	if strings.TrimSpace(outFileName) == "" {
-		fmt.Fprintln(os.Stderr, "请在 cmd/file-mp3/main.go 中填写 outFileName")
-		os.Exit(1)
-	}
+	outFileName := gen.FileNameByHMS(".mp3")
 
 	baseDir, err := gen.ExeOutputBaseDir()
 	if err != nil {
