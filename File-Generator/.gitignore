@@ -1,2 +1,8 @@
-# 本工具默认生成目录（相对工作目录下的 output/）
+# 本工具默认生成目录（exe 同目录下的 output/）
 output/
+
+# 三个可执行文件（按需本地编译）
+file-raw.exe
+file-mp4.exe
+file-mp3.exe
+file-generator.exe

@@ -22,8 +22,8 @@ A collection of practical tools and scripts designed to solve real-world efficie
 ### 3. [File Generator](./File-Generator)
 **Language: Go (Golang)**
 
-- **中文说明**: 测试上传、磁盘与同步场景时快速生成指定体积的占位文件；并可借助 ffmpeg 生成黑屏 MP4 与静音 MP3 样本。默认写入 `output/` 目录并已配置 git 忽略，避免生成物进入版本库。
-- **English**: A Go CLI for fixed-size placeholder files and minimal MP4/MP3 samples (via ffmpeg) for upload, disk, and pipeline testing. Outputs default to `output/` with gitignore rules so artifacts stay out of the repo.
+- **中文说明**: 测试上传、磁盘与同步场景时快速生成指定体积的占位文件；并可借助 ffmpeg 生成黑屏 MP4 与静音 MP3 样本。三个独立程序（`file-raw` / `file-mp4` / `file-mp3`）各自改常量、`go build` 后双击即可，生成后控制台自动关闭，输出在 exe 同目录的 `output/`（已 git 忽略）；看日志请在终端中运行 exe。
+- **English**: Three tools (`file-raw`, `file-mp4`, `file-mp3`): edit constants per `cmd/…/main.go`, build, double-click; the console closes when done, with artifacts under `output/` next to each binary (gitignored); run from a terminal to keep logs visible.
 
 ---
 

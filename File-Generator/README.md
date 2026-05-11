@@ -8,35 +8,31 @@
 ---
 
 ### ✨ 核心功能 / Features
-- **Raw / 占位文件**:
-    - **CN**: 按人类可读大小（如 `1gb`、`500mb`、`2gb`）生成文件；可选稀疏预分配（`-sparse`）或全量写 0（占满真实磁盘）。
-    - **EN**: Create files from human-readable sizes (e.g. `1gb`, `500mb`); optional sparse preallocation (`-sparse`) or fully zero-filled output.
-- **MP4 / 视频样本**:
-    - **CN**: 调用 ffmpeg 生成黑屏 H.264 MP4，可调时长与分辨率。
-    - **EN**: Invokes ffmpeg to produce black-screen H.264 MP4 with configurable duration and resolution.
-- **MP3 / 音频样本**:
-    - **CN**: 调用 ffmpeg 生成静音立体声 MP3（固定码率示例）。
-    - **EN**: Invokes ffmpeg to produce silent stereo MP3 (CBR example).
+- **file-raw.exe / 占位文件**:
+    - **CN**: 修改 `cmd/file-raw/main.go` 顶部常量（文件名、大小、是否稀疏），编译后双击即生成。
+    - **EN**: Edit constants in `cmd/file-raw/main.go`, build, double-click.
+- **file-mp4.exe / 视频样本**:
+    - **CN**: 修改 `cmd/file-mp4/main.go`，生成黑屏 H.264 MP4（依赖 ffmpeg）。
+    - **EN**: Edit `cmd/file-mp4/main.go`; black-screen H.264 (requires ffmpeg).
+- **file-mp3.exe / 音频样本**:
+    - **CN**: 修改 `cmd/file-mp3/main.go`，生成静音 MP3（依赖 ffmpeg）。
+    - **EN**: Edit `cmd/file-mp3/main.go`; silent MP3 (requires ffmpeg).
 
 ---
 
 ### 🛠️ 技术实现 / Technical Implementation
 - **Language**: Go (Golang)
 - **Mechanism**:
-    - `raw`：`os.Create`、`Truncate` 或分块写入零字节。
-    - `mp4` / `mp3`：`os/exec` 调用 `ffmpeg`（需已安装并在 PATH 中）。
-    - 相对路径的 `-out` 写入 `-dir` 目录（默认当前工作目录下的 `output/`，可用 `-dir` 修改）；`-out` 为绝对路径时不受 `-dir` 影响。`output/` 已在 `.gitignore` 中忽略，避免生成物进入版本库。
-- **Build / 编译**:
-    - `go build -o file-generator.exe .`（Windows 示例，可自定义输出名）
-- **Usage / 用法示例**:
-    - `file-generator.exe raw -out big.bin -size 2gb` → 实际为 `output/big.bin`
-    - `file-generator.exe raw -out sparse.bin -size 1gb -sparse`
-    - `file-generator.exe mp4 -out clip.mp4 -duration 30s -width 1280x720`
-    - `file-generator.exe mp3 -out silence.mp3 -duration 5m`
-    - `file-generator.exe raw -dir D:\tmp -out x.bin -size 10mb` → 写入 `D:\tmp\x.bin`
+    - 三个独立 `main`：`cmd/file-raw`、`cmd/file-mp4`、`cmd/file-mp3`；共享逻辑在 `internal/gen`。
+    - 输出目录均为 **exe 同目录下的 `output/`**，`output/` 已在 `.gitignore` 中忽略。
+    - 任务结束后进程立即退出，双击运行时控制台窗口会自行关闭（若需看日志可在终端里手动运行 exe）。
+- **Build / 编译**（在 `File-Generator` 目录下）:
+    - `go build -o file-raw.exe ./cmd/file-raw`
+    - `go build -o file-mp4.exe ./cmd/file-mp4`
+    - `go build -o file-mp3.exe ./cmd/file-mp3`
 
 ---
 
 ### 📝 记录感悟 / Reflection
-> “小工具的价值在于把重复、易错的手工步骤固化成一条命令。占位文件与样本媒体不需要华丽，但要可靠、可脚本化。”
-> "The value of a small tool is turning repetitive, error-prone steps into one command. Placeholders and sample media need not be fancy—only dependable and scriptable."
+> “拆成三个 exe 后，改一种需求只动一个 main、只编一个程序，双击目标更单一。”
+> "Three executables mean one main to edit and one binary to build per need—each double-click does one job."
