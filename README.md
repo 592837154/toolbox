@@ -19,6 +19,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 0 成本自动化天气提醒方案。结合 HuggingFace 托管、高德地图 API 及 UptimeRobot，通过企业微信机器人实现每日准时推送。
 - **English**: A zero-cost automated weather notification bot. Utilizing HuggingFace, Amap API, and UptimeRobot to deliver daily alerts via WeChat Work.
 
+### 3. [File Generator](./File-Generator)
+**Language: Go (Golang)**
+
+- **中文说明**: 测试上传、磁盘与同步场景时快速生成指定体积的占位文件；并可借助 ffmpeg 生成黑屏 MP4 与静音 MP3 样本。默认写入 `output/` 目录并已配置 git 忽略，避免生成物进入版本库。
+- **English**: A Go CLI for fixed-size placeholder files and minimal MP4/MP3 samples (via ffmpeg) for upload, disk, and pipeline testing. Outputs default to `output/` with gitignore rules so artifacts stay out of the repo.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
