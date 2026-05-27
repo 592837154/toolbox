@@ -25,6 +25,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 测试上传、磁盘与同步场景时快速生成指定体积的占位文件；并可借助 ffmpeg 生成黑屏 MP4 与静音 MP3 样本。三个独立程序（`file-raw` / `file-mp4` / `file-mp3`）各自改常量、`go build` 后双击即可；输出文件按运行时刻**时分秒**命名（如 `143052.bin`），位于 exe 同目录的 `output/`（已 git 忽略）；看日志请在终端中运行 exe。
 - **English**: Three tools: edit constants, build, double-click; output files use local **time HHmmss** names (e.g. `143052.mp4`) under `output/` next to each binary (gitignored); run from a terminal for logs.
 
+### 4. [Mall Admin CRUD](./Mall-Admin-CRUD)
+**Stack: React / TypeScript / Ant Design Pro / Go / Gin / GORM / TiDB Cloud / Docker**
+
+- **中文说明**: 一个完整的商品管理 CRUD 后台案例，覆盖 `ProTable` 表格查询、新建编辑弹窗、删除确认、Gin + GORM 后端接口、TiDB Cloud 数据持久化、本地 Docker 与 Hugging Face Spaces 公网部署。重点记录从本地可运行到线上可访问之间遇到的真实工程问题。
+- **English**: A full-stack product management CRUD case built with Ant Design Pro and Go. It covers table querying, modal forms, REST APIs, TiDB Cloud persistence, Docker local runtime, and Hugging Face Spaces deployment.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
