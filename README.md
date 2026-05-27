@@ -31,6 +31,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 一个完整的商品管理 CRUD 后台案例，覆盖 `ProTable` 表格查询、新建编辑弹窗、删除确认、Gin + GORM 后端接口、TiDB Cloud 数据持久化、本地 Docker 与 Hugging Face Spaces 公网部署。重点记录从本地可运行到线上可访问之间遇到的真实工程问题。
 - **English**: A full-stack product management CRUD case built with Ant Design Pro and Go. It covers table querying, modal forms, REST APIs, TiDB Cloud persistence, Docker local runtime, and Hugging Face Spaces deployment.
 
+### 5. [Markdown To Word](./Markdown-To-Word)
+**Language: Go (Golang)**
+
+- **中文说明**: 两个独立 Go 目录：`convert/` 中执行 `go build .` 生成 Markdown 批量转 Word 的 `convert.exe`，`clean/` 中执行 `go build .` 生成清理 `convert/input` 与 `convert/output` 的 `clean.exe`；转换由 Pandoc 驱动，支持子目录递归和可选 `reference.docx` 样式模板。
+- **English**: Two standalone Go folders: build `convert.exe` in `convert/` for Pandoc-powered batch Markdown-to-Word conversion, and build `clean.exe` in `clean/` to clear `convert/input` and `convert/output`, with recursive folders and optional `reference.docx` styling.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress

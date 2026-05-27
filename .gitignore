@@ -1,2 +1,11 @@
 # File-Generator：从仓库根目录运行时默认写入根目录的 output/
 /output/
+
+# Markdown-To-Word：本地批量转换输入、输出与编译产物
+/Markdown-To-Word/convert/input/
+/Markdown-To-Word/convert/output/
+/Markdown-To-Word/convert/convert.exe
+/Markdown-To-Word/convert/clean.exe
+/Markdown-To-Word/convert/markdown-to-word-convert.exe
+/Markdown-To-Word/clean/clean.exe
+/Markdown-To-Word/clean/markdown-to-word-clean.exe
