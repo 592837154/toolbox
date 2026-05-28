@@ -37,6 +37,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 两个独立 Go 目录：`convert/` 中执行 `go build .` 生成 Markdown 批量转 Word 的 `convert.exe`，`clean/` 中执行 `go build .` 生成清理 `convert/input` 与 `convert/output` 的 `clean.exe`；转换由 Pandoc 驱动，支持子目录递归和可选 `reference.docx` 样式模板。
 - **English**: Two standalone Go folders: build `convert.exe` in `convert/` for Pandoc-powered batch Markdown-to-Word conversion, and build `clean.exe` in `clean/` to clear `convert/input` and `convert/output`, with recursive folders and optional `reference.docx` styling.
 
+### 6. [One API LLM Gateway](./One-API-LLM-Gateway)
+**Stack: One API / Hugging Face Spaces / 阿里云百炼 / UptimeRobot / Cursor**
+
+- **中文说明**: 基于 One API 搭建的大模型 API 网关 SOP，记录从阿里云百炼渠道接入、团队令牌分发、OpenAI v1 兼容路由、Cursor 客户端配置，到 Hugging Face Spaces 免费部署与 UptimeRobot 保活的完整流程。
+- **English**: An LLM API gateway SOP based on One API, covering provider aggregation, team token distribution, OpenAI-compatible routing, Cursor setup, Hugging Face Spaces deployment, and UptimeRobot keep-alive monitoring.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
