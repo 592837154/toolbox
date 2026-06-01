@@ -43,6 +43,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 基于 One API 搭建的大模型 API 网关 SOP，记录从阿里云百炼渠道接入、团队令牌分发、OpenAI v1 兼容路由、Cursor 客户端配置，到 Hugging Face Spaces 免费部署与 UptimeRobot 保活的完整流程。
 - **English**: An LLM API gateway SOP based on One API, covering provider aggregation, team token distribution, OpenAI-compatible routing, Cursor setup, Hugging Face Spaces deployment, and UptimeRobot keep-alive monitoring.
 
+### 7. [Remote Debug Log Relay](./Remote-Debug-Log-Relay)
+**Stack: Frontend DebugLog / Node.js / Cloudflare Tunnel / AI Debugging**
+
+- **中文说明**: 一套远程调试日志回流工作流：通过前端图片探针、Cloudflare Tunnel 与本机 Node 接收服务，把测试环境和 H5 真机日志打印到本机终端，再交给 AI 分析 bug 调用链与状态分支。
+- **English**: A remote debug log relay workflow that routes frontend runtime logs from test environments and mobile WebViews back to a local terminal via image beacons, Cloudflare Tunnel, and a Node.js receiver for AI-assisted bug analysis.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
