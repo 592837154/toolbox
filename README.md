@@ -49,6 +49,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 一套远程调试日志回流工作流：通过前端图片探针、Cloudflare Tunnel 与本机 Node 接收服务，把测试环境和 H5 真机日志打印到本机终端，再交给 AI 分析 bug 调用链与状态分支。
 - **English**: A remote debug log relay workflow that routes frontend runtime logs from test environments and mobile WebViews back to a local terminal via image beacons, Cloudflare Tunnel, and a Node.js receiver for AI-assisted bug analysis.
 
+### 8. [Codex Auth Gateway](./Codex-Auth-Gateway)
+**Stack: Codex / New API / Cloudflare Worker / 51Token**
+
+- **中文说明**: 记录 Codex `responses` 私有协议与 New API 标准计费协议冲突下的可落地鉴权网关方案：由 New API 负责子 Key 有效性校验，Cloudflare Worker 替换主 Key 并原生透传请求，保障 Codex 流式协议不断流。
+- **English**: An Auth-Gateway design note for routing Codex `responses` traffic through Cloudflare Worker while using New API for child-key validation, preserving streaming compatibility when precise gateway-side token accounting is not feasible.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
