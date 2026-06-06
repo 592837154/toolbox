@@ -55,6 +55,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 - **中文说明**: 记录 Codex `responses` 私有协议与 New API 标准计费协议冲突下的可落地鉴权网关方案：由 New API 负责子 Key 有效性校验，Cloudflare Worker 替换主 Key 并原生透传请求，保障 Codex 流式协议不断流。
 - **English**: An Auth-Gateway design note for routing Codex `responses` traffic through Cloudflare Worker while using New API for child-key validation, preserving streaming compatibility when precise gateway-side token accounting is not feasible.
 
+### 9. [Sub2API Cursor Gateway](./Sub2API-Cursor-Gateway)
+**Stack: Sub2API Fork / OpenAI OAuth / Cloudflare Tunnel / Cursor**
+
+- **中文说明**: 基于 fork 仓库 [592837154/sub2api](https://github.com/592837154/sub2api)，记录 Sub2API 接入 Cursor 的完整排障过程：OpenAI OAuth 账号接入、API Key 与分组绑定、Cloudflare Tunnel 暴露本地后端、Cursor 自定义 OpenAI Base URL 配置，以及通过 `usage_logs` 证明请求确实走 Sub2API。
+- **English**: Based on the fork [592837154/sub2api](https://github.com/592837154/sub2api), this records the setup and troubleshooting flow for using Sub2API as a Cursor OpenAI-compatible gateway, covering OpenAI OAuth accounts, API key group routing, Cloudflare Tunnel exposure, Cursor Base URL configuration, and usage-log verification.
+
 ---
 
 ## 🏗️ 正在建设中 / In Progress
