@@ -58,8 +58,8 @@ A collection of practical tools and scripts designed to solve real-world efficie
 ### 9. [Sub2API Cursor Gateway](./Sub2API-Cursor-Gateway)
 **Stack: Sub2API Fork / OpenAI OAuth / Cloudflare Tunnel / Cursor**
 
-- **中文说明**: 基于 fork 仓库 [592837154/sub2api](https://github.com/592837154/sub2api)，记录 Sub2API 接入 Cursor 的完整排障过程：OpenAI OAuth 账号接入、API Key 与分组绑定、Cloudflare Tunnel 暴露本地后端、Cursor 自定义 OpenAI Base URL 配置，以及通过 `usage_logs` 证明请求确实走 Sub2API。
-- **English**: Based on the fork [592837154/sub2api](https://github.com/592837154/sub2api), this records the setup and troubleshooting flow for using Sub2API as a Cursor OpenAI-compatible gateway, covering OpenAI OAuth accounts, API key group routing, Cloudflare Tunnel exposure, Cursor Base URL configuration, and usage-log verification.
+- **中文说明**: 基于 fork 仓库 [592837154/sub2api](https://github.com/592837154/sub2api)，记录把 Sub2API 作为本地 AI API 网关接入 Cursor 的完整排障过程。Sub2API 负责统一管理 OpenAI 等上游账号、分发自定义 API Key、做分组调度和用量统计；本文覆盖 OpenAI OAuth 账号接入、API Key 与分组绑定、Cloudflare Tunnel 暴露本地后端、Cursor 自定义 OpenAI Base URL 配置，以及通过 `usage_logs` 证明请求确实走 Sub2API。
+- **English**: Based on the fork [592837154/sub2api](https://github.com/592837154/sub2api), this records how to use Sub2API as a local AI API gateway for Cursor. Sub2API manages upstream OpenAI-style accounts, issues custom API keys, routes by group, and tracks usage; the note covers OpenAI OAuth account setup, API key routing, Cloudflare Tunnel exposure, Cursor Base URL configuration, and usage-log verification.
 
 ---
 

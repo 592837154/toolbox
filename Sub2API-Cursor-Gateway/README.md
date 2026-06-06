@@ -1,8 +1,28 @@
-# Sub2API 接入 Cursor 过程记录
+# Sub2API Cursor Gateway
 
 记录时间：2026-06-06 20:18:36 +08:00
 
-本记录整理了本次在 Codex 窗口里完成的 Sub2API、Cloudflare Tunnel、Cursor 自定义 OpenAI Base URL 接入过程，包括中途遇到的问题、原因、修复动作和最终验证证据。
+Sub2API 是一个面向 AI 账号和 API Key 管理的本地网关系统。它可以把 OpenAI、Anthropic、Gemini 等上游账号统一接入到一个后台里，再对外提供 OpenAI-compatible API 地址和自定义 API Key。这样 Cursor、Claude Code、OpenCode、Codex 等客户端就不需要直接持有上游账号凭据，而是统一请求 Sub2API，由 Sub2API 负责账号调度、分组隔离、余额控制、用量统计、速率限制和错误追踪。
+
+这个项目记录的是：如何把一个本地部署的 Sub2API 实例变成 Cursor 可用的 OpenAI 兼容网关。核心链路是：
+
+```text
+Cursor
+  -> Cloudflare Tunnel 公网 HTTPS 地址
+  -> 本机 Sub2API 后端
+  -> Sub2API API Key
+  -> OpenAI OAuth 上游账号
+  -> gpt-5.5 / gpt-5.4-mini 等模型
+```
+
+本记录不只是安装步骤，而是一次完整排障复盘：从 OpenAI OAuth 账号接入、API Key 创建、分组绑定、Cloudflare Tunnel 暴露本地服务、Cursor 自定义 OpenAI Base URL 配置，到最后用 Sub2API 的 `usage_logs` 证明请求确实没有走 Cursor Pro 自带额度，而是走了 Sub2API。
+
+适用场景：
+
+- 想把自己的 OpenAI OAuth / API 账号接入 Cursor，而不是直接使用 Cursor Pro 默认模型额度。
+- 想给多个客户端或多个人分发独立 API Key，并能单独统计、限额、禁用。
+- 本地 Sub2API 已经跑通，但 Cursor 因为禁止访问 `localhost`、`127.0.0.1`、`192.168.x.x` 而无法直接连接。
+- 需要保留一份 Windows 本地部署、Cloudflare Tunnel 转发、Cursor 接入、后台数据库排障的实操记录。
 
 源码 fork：
 
