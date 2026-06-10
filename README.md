@@ -1,4 +1,4 @@
-# 🛠️ Toolbox | 实用工具库
+﻿# 🛠️ Toolbox | 实用工具库
 
 A collection of practical tools and scripts designed to solve real-world efficiency and privacy challenges.
 这里记录了我为了解决实际工作中的痛点而编写的各类小工具与脚本。
@@ -54,6 +54,12 @@ A collection of practical tools and scripts designed to solve real-world efficie
 
 - **中文说明**: 记录 Codex `responses` 私有协议与 New API 标准计费协议冲突下的可落地鉴权网关方案：由 New API 负责子 Key 有效性校验，Cloudflare Worker 替换主 Key 并原生透传请求，保障 Codex 流式协议不断流。
 - **English**: An Auth-Gateway design note for routing Codex `responses` traffic through Cloudflare Worker while using New API for child-key validation, preserving streaming compatibility when precise gateway-side token accounting is not feasible.
+
+### 9. [Sunlogin Mouse Minimizer](./sunlogin-mouse-minimizer)
+**Language: PowerShell / Windows API**
+
+- **中文说明**: 一个 Windows 桌面小脚本：启动后监听全局鼠标位置，只要检测到鼠标移动，就立即最小化可见的向日葵远程控制窗口；只改变窗口显示状态，不关闭进程，也不断开远程连接。
+- **English**: A small Windows utility that monitors global mouse movement and immediately minimizes the visible Sunlogin remote-control window once the cursor moves, without terminating the process or disconnecting the session.
 
 ---
 
