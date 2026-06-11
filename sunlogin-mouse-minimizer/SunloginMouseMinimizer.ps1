@@ -39,6 +39,14 @@ public static class Win32CursorApi
 "@
 }
 
+$AppText = [ordered]@{
+    CursorPositionReadFailed = "无法读取当前鼠标位置。"
+    MonitorStarted = "正在持续监听鼠标移动。检测到移动后会立即最小化向日葵远程窗口。"
+    MonitorStopHint = "按 Ctrl+C 可停止监听。"
+    NoVisibleTargetWindow = "检测到鼠标移动，但没有找到可见的向日葵远程窗口。"
+    MinimizedWindow = "已最小化：{0} {1} {2}"
+}
+
 Add-Type -TypeDefinition $AppConfig.ShowWindowAsyncSource
 Add-Type -TypeDefinition $AppConfig.CursorSource
 
@@ -62,7 +70,7 @@ function Get-CursorPosition {
     $point = New-Object Win32CursorApi+POINT
     $success = [Win32CursorApi]::GetCursorPos([ref]$point)
     if (-not $success) {
-        throw "无法读取当前鼠标位置。"
+        throw $AppText.CursorPositionReadFailed
     }
 
     [pscustomobject]@{
@@ -157,17 +165,18 @@ function Minimize-TargetWindows {
 
     foreach ($target in $Targets) {
         [void][Win32WindowApi]::ShowWindowAsync($target.MainWindowHandle, $AppConfig.MinimizeCommand)
-        Write-Host "已最小化：$($target.ProcessName) $($target.Id) $($target.MainWindowTitle)"
+        Write-Host ($AppText.MinimizedWindow -f $target.ProcessName, $target.Id, $target.MainWindowTitle)
     }
 }
 
 function Start-MouseMoveMonitor {
     <#
     .SYNOPSIS
-    启动鼠标移动监听，并在移动后最小化向日葵窗口。
+    启动持续鼠标移动监听，并在每次移动后最小化向日葵窗口。
 
     .DESCRIPTION
     记录启动时的鼠标坐标，短暂宽限后按固定间隔轮询鼠标位置；只要坐标发生变化，就查找并最小化目标窗口。
+    每次处理移动事件后都会把当前坐标保存为新的基准点，使脚本在窗口被重新放大后仍可继续监听下一次移动。
 
     .PARAMETER 无
     本函数不接收参数。
@@ -176,28 +185,29 @@ function Start-MouseMoveMonitor {
     不返回业务数据。监听状态和动作结果会输出到控制台。
 
     .NOTES
-    该函数会持续占用当前 PowerShell 会话，直到检测到鼠标移动并完成一次最小化，或用户按 Ctrl+C 终止。
+    该函数会持续占用当前 PowerShell 会话并维护最近一次鼠标坐标状态，直到用户按 Ctrl+C 终止。
     #>
-    $initial = Get-CursorPosition
+    $lastPosition = Get-CursorPosition
     Start-Sleep -Milliseconds $AppConfig.StartupGraceMs
 
-    Write-Host "正在监听鼠标移动。检测到移动后会立即最小化向日葵远程窗口。"
-    Write-Host "按 Ctrl+C 可停止监听。"
+    Write-Host $AppText.MonitorStarted
+    Write-Host $AppText.MonitorStopHint
 
     while ($true) {
         Start-Sleep -Milliseconds $AppConfig.PollIntervalMs
         $current = Get-CursorPosition
-        $moved = ($current.X -ne $initial.X) -or ($current.Y -ne $initial.Y)
+        $moved = ($current.X -ne $lastPosition.X) -or ($current.Y -ne $lastPosition.Y)
 
         if ($moved) {
             $targets = @(Get-TargetWindows)
             if ($targets.Count -eq 0) {
-                Write-Host "检测到鼠标移动，但没有找到可见的向日葵远程窗口。"
+                Write-Host $AppText.NoVisibleTargetWindow
             }
             else {
                 Minimize-TargetWindows -Targets $targets
             }
-            break
+
+            $lastPosition = $current
         }
     }
 }
